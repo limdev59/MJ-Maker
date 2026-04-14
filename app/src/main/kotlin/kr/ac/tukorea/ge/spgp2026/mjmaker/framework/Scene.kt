@@ -4,25 +4,37 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 
 abstract class Scene {
-    protected val objects = mutableListOf<GameObject>()
-
-    open fun update() {
-        for (obj in objects.toList()) {
-            obj.update()
-        }
-    }
-
-    open fun draw(canvas: Canvas) {
-        for (obj in objects) {
-            obj.draw(canvas)
-        }
-    }
-
+    open fun update(frameTime: Float) {}
+    open fun draw(canvas: Canvas) {}
+    open fun onEnter() {}
+    open fun onExit() {}
+    open fun onPause() {}
+    open fun onResume() {}
     open fun onTouchEvent(event: MotionEvent): Boolean = false
-    open fun add(obj: GameObject) = objects.add(obj)
-    open fun remove(obj: GameObject) = objects.remove(obj)
 
     companion object {
-        var current: Scene? = null
+        private val scenes = mutableListOf<Scene>()
+        val current: Scene? get() = scenes.lastOrNull()
+
+        fun push(scene: Scene) {
+            current?.onPause()
+            scenes.add(scene)
+            scene.onEnter()
+        }
+
+        fun pop() {
+            val last = scenes.removeAt(scenes.lastIndex)
+            last.onExit()
+            current?.onResume()
+        }
+
+        fun change(scene: Scene) {
+            if (scenes.isNotEmpty()) {
+                val last = scenes.removeAt(scenes.lastIndex)
+                last.onExit()
+            }
+            scenes.add(scene)
+            scene.onEnter()
+        }
     }
 }
