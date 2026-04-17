@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (Scene.current == null) {
-            Scene.current = MainScene()
+            Scene.push(TitleScene())
         }
     }
 }

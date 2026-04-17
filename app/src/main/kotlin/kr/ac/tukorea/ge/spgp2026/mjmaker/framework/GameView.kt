@@ -9,12 +9,20 @@ import android.view.View
 
 class GameView(context: Context, attrs: AttributeSet? = null) : View(context, attrs), Choreographer.FrameCallback {
 
+    private var lastTimeNanos: Long = 0
+
     init {
         Choreographer.getInstance().postFrameCallback(this)
     }
 
     override fun doFrame(frameTimeNanos: Long) {
-        Scene.current?.update()
+        if (lastTimeNanos == 0L) {
+            lastTimeNanos = frameTimeNanos
+        }
+        val frameTime = (frameTimeNanos - lastTimeNanos) / 1_000_000_000f
+        lastTimeNanos = frameTimeNanos
+
+        Scene.current?.update(frameTime)
         invalidate()
         Choreographer.getInstance().postFrameCallback(this)
     }
