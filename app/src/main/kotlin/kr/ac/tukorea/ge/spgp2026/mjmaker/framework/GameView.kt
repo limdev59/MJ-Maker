@@ -15,6 +15,11 @@ class GameView(context: Context, attrs: AttributeSet? = null) : View(context, at
         Choreographer.getInstance().postFrameCallback(this)
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        GameMetrics.layout.onSize(w, h)
+    }
+
     override fun doFrame(frameTimeNanos: Long) {
         if (lastTimeNanos == 0L) {
             lastTimeNanos = frameTimeNanos
@@ -28,10 +33,15 @@ class GameView(context: Context, attrs: AttributeSet? = null) : View(context, at
     }
 
     override fun onDraw(canvas: Canvas) {
+        canvas.save()
+        canvas.concat(GameMetrics.layout.transformMatrix)
         Scene.current?.draw(canvas)
+        canvas.restore()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        val pt = GameMetrics.layout.fromScreen(event.x, event.y)
+        event.setLocation(pt.x, pt.y)
         return Scene.current?.onTouchEvent(event) ?: super.onTouchEvent(event)
     }
 }
