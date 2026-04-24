@@ -12,6 +12,7 @@ class GameView(context: Context, attrs: AttributeSet? = null) : View(context, at
     private var lastTimeNanos: Long = 0
 
     init {
+        BitmapPool.init(resources)
         Choreographer.getInstance().postFrameCallback(this)
     }
 
