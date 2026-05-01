@@ -4,8 +4,24 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 
 abstract class Scene {
-    open fun update(frameTime: Float) {}
-    open fun draw(canvas: Canvas) {}
+    protected val objects = mutableListOf<GameObject>()
+
+    open fun update(frameTime: Float) {
+        for (obj in objects.toList()) {
+            obj.update(frameTime)
+        }
+    }
+
+    open fun draw(canvas: Canvas) {
+        for (obj in objects) {
+            obj.draw(canvas)
+        }
+    }
+
+    open fun add(obj: GameObject) {
+        objects.add(obj)
+    }
+
     open fun onEnter() {}
     open fun onExit() {}
     open fun onPause() {}
