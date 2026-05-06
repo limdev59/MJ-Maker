@@ -4,22 +4,14 @@ import android.graphics.Canvas
 import android.view.MotionEvent
 
 abstract class Scene {
-    protected val objects = mutableListOf<GameObject>()
+    open val world: World<*>? = null
 
     open fun update(frameTime: Float) {
-        for (obj in objects.toList()) {
-            obj.update(frameTime)
-        }
+        world?.update(frameTime)
     }
 
     open fun draw(canvas: Canvas) {
-        for (obj in objects) {
-            obj.draw(canvas)
-        }
-    }
-
-    open fun add(obj: GameObject) {
-        objects.add(obj)
+        world?.draw(canvas)
     }
 
     open fun onEnter() {}
