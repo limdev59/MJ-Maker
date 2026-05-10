@@ -2,13 +2,19 @@ package kr.ac.tukorea.ge.spgp2026.mjmaker
 
 import android.view.MotionEvent
 import kr.ac.tukorea.ge.spgp2026.mjmaker.framework.Scene
+import kr.ac.tukorea.ge.spgp2026.mjmaker.framework.World
 
 class MainScene : Scene() {
+    enum class Layer {
+        Background, Stall, Current, UI
+    }
+
+    override val world = World(Layer.entries.toTypedArray())
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {
-            // 터치한 위치(event.x, event.y)에 MJ 사진 객체 생성
-            // 리소스 ID는 임시로 설정
-            add(MJPhoto(android.R.drawable.ic_menu_gallery, event.x, event.y))
+            // 현재 투하 중인 객체는 'Current' 레이어에 추가
+            world.add(Layer.Current, MJPhoto(android.R.drawable.ic_menu_gallery, event.x, event.y))
             return true
         }
         return false
