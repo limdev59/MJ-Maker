@@ -12,7 +12,10 @@ class GameView(context: Context, attrs: AttributeSet? = null) : View(context, at
     private var lastTimeNanos: Long = 0
 
     init {
+        viewContext = context
         BitmapPool.init(resources)
+        SoundEffects.init(context)
+        BGM.init(context)
         Choreographer.getInstance().postFrameCallback(this)
     }
 
@@ -44,5 +47,9 @@ class GameView(context: Context, attrs: AttributeSet? = null) : View(context, at
         val pt = GameMetrics.layout.fromScreen(event.x, event.y)
         event.setLocation(pt.x, pt.y)
         return Scene.current?.onTouchEvent(event) ?: super.onTouchEvent(event)
+    }
+
+    companion object {
+        lateinit var viewContext: Context
     }
 }
