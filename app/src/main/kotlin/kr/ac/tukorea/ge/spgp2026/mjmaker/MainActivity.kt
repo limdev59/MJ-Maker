@@ -13,8 +13,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (Scene.current == null) {
-            Scene.push(TitleScene())
-        }
+        Scene.change(TitleScene())
     }
 }
