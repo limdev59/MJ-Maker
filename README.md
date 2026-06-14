@@ -11,7 +11,7 @@
 
 ### 3차 발표 / 최종 제출
 
-* 최종 발표 영상: 업로드 후 링크 입력
+* 최종 발표 영상: [2023184028 임성민 스마트폰 게임 프로그래밍 최종](https://youtu.be/jWv2SAnSlkw)
 * 최종 Signed APK: 업로드 후 링크 입력
 * 최종 README.md: https://github.com/limdev59/MJ-Maker/blob/master/README.md
 * Git Repository: https://github.com/limdev59/MJ-Maker
