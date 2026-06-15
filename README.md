@@ -100,6 +100,7 @@ GitHub 커밋 기록을 기준으로 주차별 작업량을 정리했습니다.
 | 10주차 | 06/08 - 06/14 |        1 | ResultScene, 일시정지, 볼륨 토글, 최고점수 저장     |
 | 11주차 |         06/15 |        1 | 최종 README 정리                          |
 | 합계   |               |       17 |                                       |
+<img width="916" height="603" alt="image" src="https://github.com/user-attachments/assets/f6dd14cd-0360-4c3b-8bc9-0e08c3a0ef73" />
 
 ---
 
